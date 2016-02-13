@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NETPIE CHAT</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Include Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Kanit:400,600&subset=thai,latin' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+	<!-- Include Style -->
+	<link rel="stylesheet" href="css/material.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/jquery.js"></script>
+	<script src="js/material.js"></script>
+
+	<!-- Include NETPIE -->
+	<script src="js/microgear.js"></script>
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+	<header class="mdl-layout__header">
+		<div class="mdl-layout__header-row">
+			<!-- Title -->
+			<span class="mdl-layout-title">
+				<img style="width: 50px;" src="https://netpie.io/wp-content/uploads/2015/07/netpie_mo-270x250.png">
+				NETPIE CHAT
+			</span>
+		</div>
+	</header>
+	<div class="mdl-layout__drawer">
+		<span class="mdl-layout-title"> <i class="material-icons" style="vertical-align: middle;">link</i> Link</span>
+		<nav class="mdl-navigation">
+			<a class="mdl-navigation__link" href="chat.html">Chat</a>
+			<a class="mdl-navigation__link" href="https://github.com/niranam51150/netpie-chat">NetpieChat</a>
+			<a class="mdl-navigation__link" href="https://github.com/netpieio">Netpie</a>
+		</nav>
+	</div>
+	<main class="mdl-layout__content">
+	<div class="page-content">
+		<div class="mdl-grid">
+			<div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet user-zone mdl-shadow--2dp">
+				<div class="mdl-cell mdl-cell--12-col">
+					<form action="#">
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label center-block">
+							<input class="mdl-textfield__input" type="text">
+							<label class="mdl-textfield__label" >Name</label>
+						</div>
+						<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored center-block">
+						Connect
+						</button>
+					</form>
+					
+					<div class="usr-online"><div>User Online</div></div>
+					<ul class="demo-list-icon mdl-list">
+						<li class="mdl-list__item">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons mdl-list__item-icon">person</i>
+								Bryan Cranston
+							</span>
+						</li>
+						<li class="mdl-list__item">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons mdl-list__item-icon">person</i>
+								Aaron Paul
+							</span>
+						</li>
+						<li class="mdl-list__item">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons mdl-list__item-icon">person</i>
+								Bob Odenkirk
+							</span>
+						</li>
+						<li class="mdl-list__item">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons mdl-list__item-icon">person</i>
+								Rola Hahaha
+							</span>
+						</li>
+						<li class="mdl-list__item">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons mdl-list__item-icon">person</i>
+								Phram Patherson
+							</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet chat-zone mdl-shadow--2dp">
+				<div class="text-chatbox">
+					<div class="me"></div>
+				</div>
+				<div class="messagebox">
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored sending">Send</button>
+					<form>
+						<input class="mdl-textfield__input textbox" type="text">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	</main>
+</div>
+</body>
+</html>
