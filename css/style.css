@@ -33,8 +33,14 @@ html, body {
 
 .chat-zone {
 	background: #E43737;
-	height: 515px;
+	height: 500px;
 	padding: 10px;
+}
+
+@media (min-width: 1300px) {
+	.chat-zone {
+		height: 750px;
+	}
 }
 
 .usr-online {
@@ -59,8 +65,14 @@ html, body {
   width: 100%;
   background: #EEE;
   margin: 0;
-  height: 280px;
+  height: 210px;
   overflow-y: scroll;
+}
+
+@media (min-width: 1300px) {
+	.list-online {
+		height: 457px;
+	}
 }
 
 .messagebox {
@@ -86,15 +98,17 @@ html, body {
 	background: #EEEEEE;
 	padding: 0 2%;
 	max-width: 96%;
-	height: 420px;
+	height: 415px;
 	border-radius: 5px;
 	font-size: 17px;
 	padding-top: 5px;
 	overflow-y: scroll;
 }
 
-.time {
-	color: #000;
+@media (min-width: 1300px) {
+	.chat-area {
+		height: 660px;
+	}
 }
 
 .message-me, .message-other {
