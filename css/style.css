@@ -26,21 +26,14 @@ html, body {
 	float: right;
 }
 
-.console {
-	position: relative;
-	display: table;
-}
-
 .user-zone {
-	display: table-cell;
+	background: #FFD428;
 	padding-top: 10px;
-	background: #FFEB3B;
 }
 
 .chat-zone {
-	display: table-cell;
-	background: #FF5722;
-	min-height: 550px;
+	background: #E43737;
+	height: 515px;
 	padding: 10px;
 }
 
@@ -62,17 +55,12 @@ html, body {
 	padding: 10px 20px;
 }
 
-.demo-list-icon {
+.list-online {
   width: 100%;
   background: #EEE;
   margin: 0;
-}
-
-.text-chatbox {
-	width: 100%;
-	min-height: 450px;
-	background: #EEEEEE;
-	border-radius: 5px;
+  height: 280px;
+  overflow-y: scroll;
 }
 
 .messagebox {
@@ -91,4 +79,43 @@ html, body {
 
 .sending {
 	float: right;
+}
+
+/* text-chatbox */
+.chat-area {
+	background: #EEEEEE;
+	padding: 0 2%;
+	max-width: 96%;
+	height: 420px;
+	border-radius: 5px;
+	font-size: 17px;
+	padding-top: 5px;
+	overflow-y: scroll;
+}
+
+.time {
+	color: #000;
+}
+
+.message-me, .message-other {
+	background: #FFF;
+	padding: 5px 10px;
+	margin: 10px 0;
+	clear: both;
+	word-wrap: break-word;
+	max-width: 60%;
+}
+
+.message-system {
+	text-align: center;
+}
+
+.message-me {
+	float: right;
+	text-align: right;
+}
+
+.message-other {
+	float: left;
+	text-align: left;
 }

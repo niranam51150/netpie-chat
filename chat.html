@@ -3,7 +3,7 @@
 <head>
 	<title>NETPIE CHAT</title>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 	<!-- Include Fonts -->
 	<link href='https://fonts.googleapis.com/css?family=Kanit:400,600&subset=thai,latin' rel='stylesheet' type='text/css'>
@@ -53,7 +53,7 @@
 					</form>
 					
 					<div class="usr-online"><div>User Online</div></div>
-					<ul class="demo-list-icon mdl-list">
+					<ul id="list-online" class="list-online mdl-list">
 						<li class="mdl-list__item">
 							<span class="mdl-list__item-primary-content">
 								<i class="material-icons mdl-list__item-icon">person</i>
@@ -75,7 +75,7 @@
 						<li class="mdl-list__item">
 							<span class="mdl-list__item-primary-content">
 								<i class="material-icons mdl-list__item-icon">person</i>
-								Rola Hahaha
+								Rorla Hahaha
 							</span>
 						</li>
 						<li class="mdl-list__item">
@@ -84,12 +84,34 @@
 								Phram Patherson
 							</span>
 						</li>
+						<li class="mdl-list__item">
+							<span class="mdl-list__item-primary-content">
+								<i class="material-icons mdl-list__item-icon">person</i>
+								Kitrati Karnkung
+							</span>
+						</li>
 					</ul>
 				</div>
 			</div>
 			<div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet chat-zone mdl-shadow--2dp">
-				<div class="text-chatbox">
-					<div class="me"></div>
+				<div id="chat-area" class="chat-area">
+					<div class="message-system">ยินดีต้อนรับเข้าสู่หน้าแชท</div>
+					<div class="message-me">สวัสดี</div>
+					<div class="message-other"><a>Test : </a> เช่นกัน</div>
+					<div class="message-me">สวัสดี~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+					<div class="message-other"><a>Test : </a> เช่นกัน</div>
+					<div class="message-me">สวัสดี</div>
+					<div class="message-other"><a>Test : </a> เช่นกันนนนนนนนนนนนนนนนนนนนนนนนนนนนนนนนน</div>
+					<div class="message-me">สวัสดี</div>
+					<div class="message-other"><a>Test : </a> เช่นกัน</div>
+					<div class="message-me">สวัสดี</div>
+					<div class="message-other"><a>Test : </a> เช่นกัน</div>
+					<div class="message-me">สวัสดี</div>
+					<div class="message-other"><a>Test : </a> เช่นกัน</div>
+					<div class="message-me">สวัสดี</div>
+					<div class="message-other"><a>Test : </a> เช่นกัน</div>
+					<div class="message-me">สวัสดี</div>
+					<div class="message-other"><a>Test : </a> เช่นกัน</div>
 				</div>
 				<div class="messagebox">
 					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored sending">Send</button>
