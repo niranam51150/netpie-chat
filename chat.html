@@ -18,7 +18,7 @@
 	<!-- Include NETPIE -->
 	<script src="js/microgear.js"></script>
 </head>
-<body>
+<body id="main">
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	<header class="mdl-layout__header">
 		<div class="mdl-layout__header-row">
@@ -42,15 +42,13 @@
 		<div class="mdl-grid">
 			<div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet user-zone mdl-shadow--2dp">
 				<div class="mdl-cell mdl-cell--12-col">
-					<form action="#">
+					<form>
 						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label center-block">
-							<input class="mdl-textfield__input" type="text">
+							<input id="name" class="mdl-textfield__input" type="text">
 							<label class="mdl-textfield__label" >Name</label>
 						</div>
-						<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored center-block">
-						Connect
-						</button>
 					</form>
+					<button id="connect" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored center-block">connect</button>
 					
 					<div class="usr-online"><div>User Online</div></div>
 					<ul id="list-online" class="list-online mdl-list">
@@ -114,9 +112,9 @@
 					<div class="message-other"><a>Test : </a> เช่นกัน</div>
 				</div>
 				<div class="messagebox">
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored sending">Send</button>
+					<button id="send-message" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored sending" disabled>Send</button>
 					<form>
-						<input class="mdl-textfield__input textbox" type="text" placeholder="พิมพ์ข้อความ...">
+						<input id="input-message" class="mdl-textfield__input textbox" type="text"  disabled>
 					</form>
 				</div>
 			</div>
@@ -124,5 +122,104 @@
 	</div>
 	</main>
 </div>
+<script>
+	$(document).ready(function() {
+		//////  Set NETPIE  /////
+		const APPID = "APPID";
+		const APPKEY = "APPKEY";
+		const APPSECRET = "APPSECRET";
+
+		// Create Microgear Object //
+		var microgear = Microgear.create({
+			gearkey: APPKEY,
+			gearsecret: APPSECRET
+		});
+
+		microgear.on('connected', function() {
+			microgear.subscribe('/chat');
+			microgear.setname(name);
+			connect_button();
+			console.log('microgear connect');
+		});
+
+		microgear.on('disconnected', function() {
+			disconnect_button();
+			console.log('disconnect');
+		});
+
+		microgear.on('rejected', function(info) {
+			disconnect_button();
+			console.log('Connection rejected: '+ info);
+		});
+
+		microgear.on('error', function(err) {
+			disconnect_button();
+			console.log('Error: '+ err);
+		});
+
+		function connect_button() {
+			// style button for connected status
+			$('#connect').prop('disabled', false);
+			$('#connect').removeClass('mdl-button--colored');
+			$('#connect').addClass('mdl-button--accent');
+			$('#connect').text('disconnect');
+
+			$('#input-message').prop('disabled', false);
+			$('#send-message').prop('disabled', false);
+		}
+
+		function connecting_button() {
+			// style button for connecting status
+			$('#name').prop('disabled', true);
+			$('#connect').prop('disabled', true);
+			$('#connect').text('connecting...');
+		}
+
+		function disconnect_button() {
+			// style button for disconnect status
+			$('#name').prop('disabled', false);
+			$('#connect').prop('disabled', false);
+			$('#connect').removeClass('mdl-button--accent');
+			$('#connect').addClass('mdl-button--colored');
+			$('#connect').text('connect');
+
+			$('#input-message').prop('disabled', true);
+			$('#send-message').prop('disabled', true);
+		}
+
+	    $('#main').fadeIn('slow');
+
+		$('#connect').click(function() {
+			if($('#name').val() != "") {
+				if($('#connect').text() == 'connect') {
+					connecting_button();
+					microgear.connect(APPID); // Connect microgear
+				}
+				else if($('#connect').text() == 'disconnect') {
+					microgear.unsubscribe('/chat');
+					microgear.client.disconnect();
+					microgear.client = null;
+				}
+			}
+			else alert("Please enter your name.");
+		});
+
+		$('#name').keypress(function (e) {
+			if(e.which == 13 && $('#name').val() != "") {
+				connecting_button();
+				microgear.connect(APPID); // Connect microgear
+				return false;
+			}
+			else if(e.which == 13 && $('#name').val() == "") {
+				alert("Please enter your name.");
+				return false;
+			}
+		});
+
+		$(window).unload(function() {
+		  microgear.publish("/chat","bye#"+name);
+		});
+	});
+</script>
 </body>
 </html>

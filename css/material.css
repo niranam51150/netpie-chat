@@ -9764,7 +9764,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
   font-size: 16px;
   display: inline-block;
   box-sizing: border-box;
-  max-width: 100%;
+  max-width: 60%;
   margin: 0;
   padding: 20px 0; }
   .mdl-textfield .mdl-button {
