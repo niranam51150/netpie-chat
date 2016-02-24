@@ -18,6 +18,9 @@
 	<!-- Include NETPIE -->
 	<script src="js/microgear.js"></script>
 </head>
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--fab mdl-js-ripple-effect mdl-button--colored scrollToTop">
+	    	<i class="material-icons">keyboard_arrow_up</i>
+	    </button>
 <body id="main">
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	<header class="mdl-layout__header">
@@ -30,7 +33,7 @@
 		</div>
 	</header>
 	<div class="mdl-layout__drawer">
-		<span class="mdl-layout-title"> <i class="material-icons" style="vertical-align: middle;">link</i> Link</span>
+		<span class="mdl-layout-title"><i class="material-icons" style="vertical-align: middle;">link</i> Link</span>
 		<nav class="mdl-navigation">
 			<a class="mdl-navigation__link" href="chat.html">Chat</a>
 			<a class="mdl-navigation__link" href="https://github.com/niranam51150/netpie-chat">NetpieChat</a>
@@ -52,64 +55,11 @@
 					
 					<div class="usr-online"><div>User Online</div></div>
 					<ul id="list-online" class="list-online mdl-list">
-						<li class="mdl-list__item">
-							<span class="mdl-list__item-primary-content">
-								<i class="material-icons mdl-list__item-icon">person</i>
-								Bryan Cranston
-							</span>
-						</li>
-						<li class="mdl-list__item">
-							<span class="mdl-list__item-primary-content">
-								<i class="material-icons mdl-list__item-icon">person</i>
-								Aaron Paul
-							</span>
-						</li>
-						<li class="mdl-list__item">
-							<span class="mdl-list__item-primary-content">
-								<i class="material-icons mdl-list__item-icon">person</i>
-								Bob Odenkirk
-							</span>
-						</li>
-						<li class="mdl-list__item">
-							<span class="mdl-list__item-primary-content">
-								<i class="material-icons mdl-list__item-icon">person</i>
-								Rorla Hahaha
-							</span>
-						</li>
-						<li class="mdl-list__item">
-							<span class="mdl-list__item-primary-content">
-								<i class="material-icons mdl-list__item-icon">person</i>
-								Phram Patherson
-							</span>
-						</li>
-						<li class="mdl-list__item">
-							<span class="mdl-list__item-primary-content">
-								<i class="material-icons mdl-list__item-icon">person</i>
-								Kitrati Karnkung
-							</span>
-						</li>
 					</ul>
 				</div>
 			</div>
 			<div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet chat-zone mdl-shadow--2dp">
 				<div id="chat-area" class="chat-area">
-					<div class="message-system">ยินดีต้อนรับเข้าสู่หน้าแชท</div>
-					<div class="message-me">สวัสดี</div>
-					<div class="message-other"><a>Test : </a> เช่นกัน</div>
-					<div class="message-me">สวัสดี~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
-					<div class="message-other"><a>Test : </a> เช่นกัน</div>
-					<div class="message-me">สวัสดี</div>
-					<div class="message-other"><a>Test : </a> เช่นกันนนนนนนนนนนนนนนนนนนนนนนนนนนนนนนนน</div>
-					<div class="message-me">สวัสดี</div>
-					<div class="message-other"><a>Test : </a> เช่นกัน</div>
-					<div class="message-me">สวัสดี</div>
-					<div class="message-other"><a>Test : </a> เช่นกัน</div>
-					<div class="message-me">สวัสดี</div>
-					<div class="message-other"><a>Test : </a> เช่นกัน</div>
-					<div class="message-me">สวัสดี</div>
-					<div class="message-other"><a>Test : </a> เช่นกัน</div>
-					<div class="message-me">สวัสดี</div>
-					<div class="message-other"><a>Test : </a> เช่นกัน</div>
 				</div>
 				<div class="messagebox">
 					<button id="send-message" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored sending" disabled>Send</button>
@@ -124,6 +74,8 @@
 </div>
 <script>
 	$(document).ready(function() {
+		$('#main').fadeIn('slow');
+
 		//////  Set NETPIE  /////
 		const APPID = "APPID";
 		const APPKEY = "APPKEY";
@@ -136,25 +88,56 @@
 		});
 
 		microgear.on('connected', function() {
-			microgear.subscribe('/chat');
+			var name = $('#name').val();
+
 			microgear.setname(name);
+			microgear.subscribe('/chat');
 			connect_button();
 			console.log('microgear connect');
-		});
 
-		microgear.on('disconnected', function() {
-			disconnect_button();
-			console.log('disconnect');
+			microgear.publish("/chat", "newconnect#" + name);
 		});
 
 		microgear.on('rejected', function(info) {
 			disconnect_button();
-			console.log('Connection rejected: '+ info);
+			console.log('Connection rejected: ' + info);
 		});
 
 		microgear.on('error', function(err) {
 			disconnect_button();
-			console.log('Error: '+ err);
+			console.log('Error: ' + err);
+		});
+
+		microgear.on("message", function(topic,msg) {
+			console.log(msg);
+
+			var name = $('#name').val();
+		    var msgi = msg.split("#");
+
+		    if(msgi[0] == "msg" && msgi[1] == name) {
+		    	var message = $('<div class="message-me">' + msgi[2] + '</div>');
+		    	append_message(message);
+		    }
+		    else if(msgi[0] == "msg" && msgi[1] != name) {
+		    	var message = $('<div class="message-other"><a>' + msgi[1] + ' : </a> ' + msgi[2] + '</div>');
+		    	append_message(message);
+		    }
+		    else if(msgi[0] == "newconnect" && msgi[1] != name) {
+		    	appent_user(msgi[1]);
+		    	microgear.chat(msgi[1], "nameonline#" + name);
+
+		    	var message = $('<div class="message-system">ยินดีต้อนรับ ' + msgi[1] + ' เข้าสู่ห้องแชท</div>');
+				append_message(message);
+		    }
+		    else if(msgi[0] == "nameonline") {
+		    	appent_user(msgi[1]);
+		    }
+		    else if(msgi[0] == "bye") {
+		    	$('.list-name[data-name="' + msgi[1] + '"').remove();
+
+		    	var message = $('<div class="message-system">' + msgi[1] + ' ออกจากห้องแชท</div>');
+		    	append_message(message);
+		    }
 		});
 
 		function connect_button() {
@@ -187,38 +170,103 @@
 			$('#send-message').prop('disabled', true);
 		}
 
-	    $('#main').fadeIn('slow');
+		function appent_user(username) {
+			var item = $('<li class="mdl-list__item list-name" data-name="' + username + '"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + username + '</span></li>');
+
+			$('#list-online').append(item);
+		}
+
+		function disconnect_status() {
+			$('.list-name').remove();
+			microgear.publish('/chat', 'bye#' + $('#name').val());
+			disconnect_button();
+		}
+
+		function send_message(message) {
+			microgear.publish("/chat", "msg#" + $('#name').val() + "#" + message);
+			$('#input-message').val('');
+		}
+
+		function append_message(message) {
+			$('#chat-area').append(message);
+		    autoscroll();
+		}
+
+		function autoscroll() {
+			$('#chat-area').animate({scrollTop: $('#chat-area')[0].scrollHeight});
+		}
+
+		$(window).unload(function() {
+			disconnect_status();
+		});
 
 		$('#connect').click(function() {
-			if($('#name').val() != "") {
-				if($('#connect').text() == 'connect') {
+			var name = $('#name').val();
+			var button = $(this).text();
+
+			if(name != "") {
+				if(button == 'connect') {
 					connecting_button();
 					microgear.connect(APPID); // Connect microgear
 				}
-				else if($('#connect').text() == 'disconnect') {
+				else if(button == 'disconnect') {
+					disconnect_status();
 					microgear.unsubscribe('/chat');
 					microgear.client.disconnect();
 					microgear.client = null;
+					console.log('disconnect');
 				}
 			}
 			else alert("Please enter your name.");
 		});
 
-		$('#name').keypress(function (e) {
-			if(e.which == 13 && $('#name').val() != "") {
+		$('#name').keypress(function(e) {
+			var name = $(this).val();
+
+			if(e.which == 13 && name != "") {
 				connecting_button();
 				microgear.connect(APPID); // Connect microgear
 				return false;
 			}
-			else if(e.which == 13 && $('#name').val() == "") {
-				alert("Please enter your name.");
+			else if(e.which == 13 && name == "") {
+				alert('Please enter your name.');
 				return false;
 			}
 		});
 
-		$(window).unload(function() {
-		  microgear.publish("/chat","bye#"+name);
+		$('#send-message').click(function() {
+			var message = $('#input-message').val();
+
+			if(message != "") {
+				send_message(message);
+			}
 		});
+
+		$('#input-message').keypress(function(e) {
+			var message = $(this).val();
+
+			if(e.which == 13 && message != "") {
+				send_message(message);
+				return false;
+			}
+			else if(e.which == 13 && message == "") {
+				return false;
+			}
+		});
+
+		$(window).scroll(function(){
+			if ($(this).scrollTop() > 100) {
+				$('.scrollToTop').fadeIn();
+			} else {
+				$('.scrollToTop').fadeOut();
+			}
+		});
+
+		$('.scrollToTop').click(function(){
+			$('html, body').animate({scrollTop : 0}, 800);
+			return false;
+		});
+
 	});
 </script>
 </body>
