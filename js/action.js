@@ -2,9 +2,9 @@ $(document).ready(function() {
 		$('#main').fadeIn('slow');
 
 		//////  Set NETPIE  /////
-		const APPID = "netpiechat";
-		const APPKEY = "XOqFw4afwHEmN2B";
-		const APPSECRET = "43xogwu8XYwOFoVS8OHPOyzOtUCRO6";
+		const APPID = "MYAPPID";
+		const APPKEY = "MYAPPKEY";
+		const APPSECRET = "MYAPPSECRET";
 
 		// Create Microgear Object //
 		var microgear = Microgear.create({
